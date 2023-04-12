@@ -9,19 +9,32 @@ float usdToRub = 73.89f;
 float eurToUsd = 1.18f;
 float eurToRub = 87.64f;
 
+bool programExecution = true;
+
+string rubleName = "Рубли";
+string dollarsName = "Доллары";
+string euroName = "Евро";
+
+const int ConvertFromRubles = 1;
+const int ConvertFromDollars = 2;
+const int ConvertFromEuros = 3;
+
+const string ExitYes = "да";
+const string ExitNo = "нет";
+
 Console.WriteLine("Конвертор валют");
 
-while (true)
+while (programExecution)
 {
-    Console.WriteLine($"Ваш баланс:\nРубли = {rubles}\nДоллары = {dollars}\nЕвро = {euroCount}");
+    Console.WriteLine($"Ваш баланс:\n{rubleName} = {rubles}\n{dollarsName} = {dollars}\n{euroName} = {euroCount}");
 
     Console.WriteLine("Выбурите валюту, которую хотите конвертировать");
-    Console.WriteLine("1.Рубли\n2.Доллары\n3.Евро");
+    Console.WriteLine($"1.{rubleName}\n2.{dollarsName}\n3.{euroName}");
 
     int fromCurrency = Convert.ToInt32(Console.ReadLine());
 
     Console.WriteLine("Выбурите валюту, в которую хотите конвертировать");
-    Console.WriteLine("1.Рубли\n2.Доллары\n3.Евро");
+    Console.WriteLine($"1.{rubleName}\n2.{dollarsName}\n3.{euroName}");
 
     int toCurrency = Convert.ToInt32(Console.ReadLine());
 
@@ -31,40 +44,40 @@ while (true)
 
     switch (fromCurrency)
     {
-        case 1:
+        case ConvertFromRubles:
             switch (toCurrency)
             {
-                case 2:
+                case ConvertFromDollars:
                     rubles -= valueToConvert;
                     dollars += valueToConvert * rubToUsd;
                     break;
-                case 3:
+                case ConvertFromEuros:
                     rubles -= valueToConvert;
                     euroCount += valueToConvert * rubToEur;
                     break;
             }
             break;
-        case 2:
+        case ConvertFromDollars:
             switch (toCurrency)
             {
-                case 1:
+                case ConvertFromRubles:
                     dollars -= valueToConvert;
                     rubles += valueToConvert * usdToRub;
                     break;
-                case 3:
+                case ConvertFromEuros:
                     dollars -= valueToConvert;
                     euroCount += valueToConvert * usdToEur;
                     break;
             }
             break;
-        case 3:
+        case ConvertFromEuros:
             switch (toCurrency)
             {
-                case 1:
+                case ConvertFromRubles:
                     euroCount -= valueToConvert;
                     rubles += valueToConvert * eurToRub;
                     break;
-                case 2:
+                case ConvertFromDollars:
                     euroCount -= valueToConvert;
                     dollars += valueToConvert * eurToUsd;
                     break;
@@ -72,10 +85,10 @@ while (true)
             break;
     }
 
-    Console.WriteLine($"Ваш баланс:\nРубли = {rubles}\nДоллары = {dollars}\nЕвро = {euroCount}");
-    Console.WriteLine("Хотите продолжить? (да/нет)");
+    Console.WriteLine($"Ваш баланс:\n{rubleName} = {rubles}\n{dollarsName} = {dollars}\n{euroName} = {euroCount}");
+    Console.WriteLine($"Хотите продолжить? ({ExitYes}/{ExitNo})");
 
     string answer = Console.ReadLine();
 
-    if (answer == "нет") break;
+    if (answer == ExitNo) programExecution = false;
 }
